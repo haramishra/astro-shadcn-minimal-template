@@ -1,0 +1,59 @@
+---
+import "@/styles/global.css";
+import BaseHead from "./BaseHead.astro";
+import Header from "@/components/layout/Header.astro";
+import Footer from "@/components/layout/Footer.astro";
+
+interface Props {
+  /** Page title — overrides the default site title */
+  title?: string;
+  /** Page description for SEO */
+  description?: string;
+  /** Custom OG image path */
+  ogImage?: string;
+  /** OG type — defaults to "website" */
+  ogType?: "website" | "article";
+  /** Twitter card type */
+  twitterCard?: "summary" | "summary_large_image";
+  /** Canonical URL override */
+  canonical?: string;
+  /** Robots directive */
+  robots?: string;
+  /** Meta keywords */
+  keywords?: string;
+  /** Article publish date (ISO 8601) */
+  publishedTime?: string;
+  /** Article modified date (ISO 8601) */
+  modifiedTime?: string;
+  /** Author name */
+  author?: string;
+  /** Additional classes for the <main> element */
+  class?: string;
+}
+
+const { class: className, ...headProps } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <BaseHead {...headProps} />
+  </head>
+  <body class="flex min-h-svh flex-col bg-background text-foreground antialiased">
+    <!-- Skip to content (a11y) -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
+    >
+      Skip to content
+    </a>
+
+    <Header />
+
+    <main id="main-content" class:list={["flex-1", className]}>
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

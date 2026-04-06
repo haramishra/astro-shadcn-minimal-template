@@ -1,9 +1,16 @@
 ---
 import { siteDetails, footerNav, socialLinks } from "@/global";
 import type { NavGroup } from "@/global";
+
+interface Props {
+  showSocials?: boolean;
+  class?: string;
+}
+
+const { showSocials = true, class: className } = Astro.props;
 ---
 
-<footer class="border-t border-border/40 bg-muted/30" id="site-footer">
+<footer class:list={["border-t border-border/40 bg-muted/30", className]} id="site-footer">
   <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
     <!-- Top Section: Brand + Nav Columns -->
     <div class="grid grid-cols-2 gap-8 lg:grid-cols-6">
@@ -18,21 +25,23 @@ import type { NavGroup } from "@/global";
         </p>
 
         <!-- Social Links -->
-        <div class="mt-6 flex items-center gap-3" id="footer-social-links">
-          {
-            socialLinks.map((social) => (
-              <a
-                href={social.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-                aria-label={`Follow us on ${social.type}`}
-              >
-                <social.Icon className="h-4 w-4" />
-              </a>
-            ))
-          }
-        </div>
+        {
+          showSocials && (
+            <div class="mt-6 flex items-center gap-3" id="footer-social-links">
+              {socialLinks.map((social) => (
+                <a
+                  href={social.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                  aria-label={`Follow us on ${social.type}`}
+                >
+                  <social.Icon className="h-4 w-4" />
+                </a>
+              ))}
+            </div>
+          )
+        }
       </div>
 
       <!-- Navigation Columns -->
@@ -62,7 +71,9 @@ import type { NavGroup } from "@/global";
     </div>
 
     <!-- Bottom Bar -->
-    <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border/40 pt-8 sm:flex-row">
+    <div
+      class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border/40 pt-8 sm:flex-row"
+    >
       <p class="text-sm text-muted-foreground">
         &copy; {new Date().getFullYear()} {siteDetails.name}. All rights reserved.
       </p>

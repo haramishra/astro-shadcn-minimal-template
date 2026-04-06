@@ -1,0 +1,25 @@
+---
+/**
+ * Footer — Barrel component
+ *
+ * Usage:
+ *   <Footer />                        → default multi-column footer
+ *   <Footer variant="simple" />       → compact single-row footer
+ *   <Footer variant="cta" />          → newsletter banner + multi-column
+ *
+ * All variants accept: showSocials, class
+ * The "cta" variant also accepts: showNewsletter
+ */
+import type { FooterProps } from "../types";
+import FooterDefault from "./FooterDefault.astro";
+import FooterSimple from "./FooterSimple.astro";
+import FooterCTA from "./FooterCTA.astro";
+
+type Props = FooterProps;
+
+const { variant = "default", ...rest } = Astro.props;
+---
+
+{variant === "simple" && <FooterSimple {...rest} />}
+{variant === "cta" && <FooterCTA {...rest} />}
+{variant === "default" && <FooterDefault {...rest} />}

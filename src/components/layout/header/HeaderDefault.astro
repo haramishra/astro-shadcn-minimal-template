@@ -1,0 +1,96 @@
+---
+import { siteDetails, ctaDetails, headerNav } from "@/global"
+import type { NavLink } from "@/global"
+import { MobileNav } from "./MobileNav"
+
+interface Props {
+  sticky?: boolean
+  transparent?: boolean
+  showCta?: boolean
+  class?: string
+}
+
+const {
+  sticky = true,
+  transparent = false,
+  showCta = true,
+  class: className,
+} = Astro.props
+---
+
+<header
+  id="site-header"
+  class:list={[
+    "z-50 w-full transition-colors duration-300",
+    sticky && "sticky top-0",
+    transparent
+      ? "bg-transparent"
+      : "border-b border-border/40 bg-background/80 backdrop-blur-xl supports-backdrop-filter:bg-background/60",
+    className,
+  ]}
+>
+  <div
+    class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
+  >
+    <!-- Logo -->
+    <a
+      href="/"
+      class="flex items-center gap-2 transition-opacity hover:opacity-80"
+      id="header-logo"
+    >
+      <img src={siteDetails.logo} alt={siteDetails.name} class="h-8 w-8" />
+      <span class="text-lg font-semibold tracking-tight"
+        >{siteDetails.name}</span
+      >
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav
+      class="hidden items-center gap-1 md:flex"
+      id="desktop-nav"
+      aria-label="Main navigation"
+    >
+      {
+        headerNav.map((link: NavLink) => (
+          <a
+            href={link.href}
+            class="relative rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            data-nav-link
+          >
+            {link.label}
+            {link.badge && (
+              <span class="ml-1.5 inline-flex items-center rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary">
+                {link.badge}
+              </span>
+            )}
+          </a>
+        ))
+      }
+    </nav>
+
+    <!-- CTA + Mobile Menu -->
+    <div class="flex items-center gap-3">
+      {
+        showCta && (
+          <a
+            href={ctaDetails.primary.href}
+            class="hidden rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 sm:inline-flex"
+            id="header-cta"
+          >
+            {ctaDetails.primary.label}
+          </a>
+        )
+      }
+
+      <!-- Mobile Sheet Nav -->
+      <MobileNav
+        client:load
+        links={headerNav}
+        siteName={siteDetails.name}
+        siteLogo={siteDetails.logo}
+        cta={showCta ? ctaDetails.primary : undefined}
+        showCta={showCta}
+      />
+    </div>
+  </div>
+</header>

@@ -7,7 +7,9 @@
     "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@header": ["./src/components/layout/header/index.astro"],
+      "@footer": ["./src/components/layout/footer/index.astro"]
     }
   }
 }

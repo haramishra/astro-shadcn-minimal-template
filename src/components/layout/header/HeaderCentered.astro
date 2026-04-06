@@ -1,0 +1,122 @@
+---
+import { siteDetails, ctaDetails, headerNav } from "@/global";
+import type { NavLink } from "@/global";
+import { MobileNav } from "./MobileNav";
+
+interface Props {
+  sticky?: boolean;
+  transparent?: boolean;
+  showCta?: boolean;
+  class?: string;
+}
+
+const {
+  sticky = true,
+  transparent = false,
+  showCta = true,
+  class: className,
+} = Astro.props;
+
+// Split nav links into two halves for centered layout
+const midpoint = Math.ceil(headerNav.length / 2);
+const leftLinks = headerNav.slice(0, midpoint);
+const rightLinks = headerNav.slice(midpoint);
+---
+
+<header
+  id="site-header"
+  class:list={[
+    "z-50 w-full transition-colors duration-300",
+    sticky && "sticky top-0",
+    transparent
+      ? "bg-transparent"
+      : "border-b border-border/40 bg-background/80 backdrop-blur-xl supports-backdrop-filter:bg-background/60",
+    className,
+  ]}
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Mobile: standard row layout -->
+    <div class="flex h-16 items-center justify-between md:hidden">
+      <a
+        href="/"
+        class="flex items-center gap-2 transition-opacity hover:opacity-80"
+      >
+        <img src={siteDetails.logo} alt={siteDetails.name} class="h-8 w-8" />
+        <span class="text-lg font-semibold tracking-tight">{siteDetails.name}</span>
+      </a>
+
+      <MobileNav
+        client:load
+        links={headerNav}
+        siteName={siteDetails.name}
+        siteLogo={siteDetails.logo}
+        cta={showCta ? ctaDetails.primary : undefined}
+        showCta={showCta}
+      />
+    </div>
+
+    <!-- Desktop: centered logo with split nav -->
+    <div class="hidden h-16 items-center justify-center md:flex">
+      <!-- Left Nav -->
+      <nav class="flex items-center gap-1" aria-label="Main navigation (left)">
+        {
+          leftLinks.map((link: NavLink) => (
+            <a
+              href={link.href}
+              class="relative rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              data-nav-link
+            >
+              {link.label}
+              {link.badge && (
+                <span class="ml-1.5 inline-flex items-center rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary">
+                  {link.badge}
+                </span>
+              )}
+            </a>
+          ))
+        }
+      </nav>
+
+      <!-- Center Logo -->
+      <a
+        href="/"
+        class="mx-8 flex items-center gap-2 transition-opacity hover:opacity-80"
+        id="header-logo"
+      >
+        <img src={siteDetails.logo} alt={siteDetails.name} class="h-9 w-9" />
+        <span class="text-xl font-semibold tracking-tight">{siteDetails.name}</span>
+      </a>
+
+      <!-- Right Nav + CTA -->
+      <nav class="flex items-center gap-1" aria-label="Main navigation (right)">
+        {
+          rightLinks.map((link: NavLink) => (
+            <a
+              href={link.href}
+              class="relative rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              data-nav-link
+            >
+              {link.label}
+              {link.badge && (
+                <span class="ml-1.5 inline-flex items-center rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary">
+                  {link.badge}
+                </span>
+              )}
+            </a>
+          ))
+        }
+        {
+          showCta && (
+            <a
+              href={ctaDetails.primary.href}
+              class="ml-4 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25"
+              id="header-cta"
+            >
+              {ctaDetails.primary.label}
+            </a>
+          )
+        }
+      </nav>
+    </div>
+  </div>
+</header>

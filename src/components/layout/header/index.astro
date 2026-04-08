@@ -22,3 +22,27 @@ const { variant = "default", ...rest } = Astro.props;
 {variant === "centered" && <HeaderCentered {...rest} />}
 {variant === "minimal" && <HeaderMinimal {...rest} />}
 {variant === "default" && <HeaderDefault {...rest} />}
+
+<script>
+  const header = document.getElementById("site-header");
+  let lastScrollTop = 0;
+
+  function handleScroll() {
+    if (!header) return;
+    const scrollTop = window.scrollY;
+
+    // After hero, use your up/down animation
+    if (scrollTop > lastScrollTop) {
+      // scrolling down
+      header.style.transform = "translateY(-100%)";
+    } else {
+      // scrolling up
+      header.style.transform = "translateY(0)";
+    }
+
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+  }
+
+  window.addEventListener("scroll", handleScroll);
+  handleScroll(); // run on load
+</script>

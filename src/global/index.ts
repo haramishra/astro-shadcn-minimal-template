@@ -2,6 +2,7 @@ export {
   siteDetails,
   defaultMeta,
   ctaDetails,
+  layoutDefaults,
   socialLinks,
   type SocialLink,
   type SocialType,

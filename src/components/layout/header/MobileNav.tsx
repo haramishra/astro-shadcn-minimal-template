@@ -10,22 +10,11 @@ import {
 import { Button } from "@/components/ui/button"
 import { IconMenu2 } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
-import type { NavLink } from "@/global"
+import { siteDetails, ctaDetails, layoutDefaults, type NavLink } from "@/global"
 
 interface MobileNavProps {
   /** Navigation links to display */
   links: NavLink[]
-  /** Site name shown in sheet header */
-  siteName: string
-  /** Site logo URL */
-  siteLogo: string
-  /** Primary CTA */
-  cta?: {
-    label: string
-    href: string
-  }
-  /** Show CTA button (default: true) */
-  showCta?: boolean
   /** Additional trigger button classes */
   className?: string
 }
@@ -34,12 +23,11 @@ interface MobileNavProps {
 
 export function MobileNav({
   links,
-  siteName,
-  siteLogo,
-  cta,
-  showCta = true,
   className,
 }: MobileNavProps) {
+  const { showCta } = layoutDefaults.header
+  const cta = showCta ? ctaDetails.primary : undefined
+
   return (
     <Sheet>
       <SheetTrigger
@@ -60,9 +48,9 @@ export function MobileNav({
         <SheetHeader>
           <SheetTitle>
             <a href="/" className="flex items-center gap-2">
-              <img src={siteLogo} alt={siteName} className="h-7 w-7" />
+              <img src={siteDetails.logo} alt={siteDetails.name} className="h-7 w-7" />
               <span className="text-base font-semibold tracking-tight">
-                {siteName}
+                {siteDetails.name}
               </span>
             </a>
           </SheetTitle>

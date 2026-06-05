@@ -92,6 +92,20 @@ export const ctaDetails = {
   },
 } as const;
 
+// ─── Layout Defaults ─────────────────────────────────────────────────────────
+
+/** Centralized layout defaults — components import these directly. */
+export const layoutDefaults = {
+  header: {
+    sticky: true,
+    showCta: true,
+  },
+  footer: {
+    showSocials: true,
+    showNewsletter: true,
+  },
+} as const;
+
 // ─── Derived Helpers ─────────────────────────────────────────────────────────
 
 /** Mapped social links with a consistent shape for components. */

@@ -1,14 +1,14 @@
 ---
-import { siteDetails, footerNav } from "@/global"
+import { siteDetails, footerNav, layoutDefaults } from "@/global"
 import FooterLogo from "./_parts/FooterLogo.astro"
 import SocialLinks from "./_parts/SocialLinks.astro"
 
 interface Props {
-  showSocials?: boolean
   class?: string
 }
 
-const { showSocials = true, class: className } = Astro.props
+const { class: className } = Astro.props
+const { showSocials } = layoutDefaults.footer
 
 // Flatten all footer nav groups into a single list of links
 const inlineLinks = footerNav.flatMap((group) => group.links).slice(0, 6)

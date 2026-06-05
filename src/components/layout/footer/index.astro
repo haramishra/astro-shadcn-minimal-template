@@ -7,15 +7,16 @@
  *   <Footer variant="simple" />       → compact single-row footer
  *   <Footer variant="cta" />          → newsletter banner + multi-column
  *
- * All variants accept: showSocials, class
- * The "cta" variant also accepts: showNewsletter
+ * Props: variant, class
  */
-import type { FooterProps } from "../types";
 import FooterDefault from "./FooterDefault.astro";
 import FooterSimple from "./FooterSimple.astro";
 import FooterCTA from "./FooterCTA.astro";
 
-type Props = FooterProps;
+interface Props {
+  variant?: "default" | "simple" | "cta";
+  class?: string;
+}
 
 const { variant = "default", ...rest } = Astro.props;
 ---

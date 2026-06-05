@@ -1,23 +1,21 @@
 ---
-import { siteDetails, ctaDetails, headerNav } from "@/global"
+import { siteDetails, ctaDetails, headerNav, layoutDefaults } from "@/global"
 import HeaderLogo from "./_parts/HeaderLogo.astro"
 import NavLinks from "./_parts/NavLinks.astro"
 import CtaButton from "./_parts/CtaButton.astro"
 import { MobileNav } from "./MobileNav"
 
 interface Props {
-  sticky?: boolean
   transparent?: boolean
-  showCta?: boolean
   class?: string
 }
 
 const {
-  sticky = true,
   transparent = false,
-  showCta = true,
   class: className,
 } = Astro.props
+
+const { sticky, showCta } = layoutDefaults.header
 ---
 
 <header
@@ -56,10 +54,6 @@ const {
       <MobileNav
         client:load
         links={headerNav}
-        siteName={siteDetails.name}
-        siteLogo={siteDetails.logo}
-        cta={showCta ? ctaDetails.primary : undefined}
-        showCta={showCta}
       />
     </div>
   </div>

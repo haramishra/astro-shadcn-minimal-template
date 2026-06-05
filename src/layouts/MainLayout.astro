@@ -3,7 +3,6 @@ import "@/styles/global.css";
 import BaseHead from "./BaseHead.astro";
 import Header from "@header";
 import Footer from "@footer";
-import type { HeaderVariant, FooterVariant } from "@/components/layout/types";
 
 interface Props {
   /** Page title — overrides the default site title */
@@ -33,27 +32,18 @@ interface Props {
 
   // ── Layout Variant Props ──────────────────────────────────────────────
   /** Header variant: "default" | "centered" | "minimal" */
-  headerVariant?: HeaderVariant;
+  header?: "default" | "centered" | "minimal";
   /** Footer variant: "default" | "simple" | "cta" */
-  footerVariant?: FooterVariant;
+  footer?: "default" | "simple" | "cta";
   /** Make header transparent (overlay on hero) */
   headerTransparent?: boolean;
-  /** Show header CTA button */
-  headerShowCta?: boolean;
-  /** Show footer social icons */
-  footerShowSocials?: boolean;
-  /** Show footer newsletter (cta variant only) */
-  footerShowNewsletter?: boolean;
 }
 
 const {
   class: className,
-  headerVariant = "default",
-  footerVariant = "default",
+  header = "default",
+  footer = "default",
   headerTransparent = false,
-  headerShowCta = true,
-  footerShowSocials = true,
-  footerShowNewsletter = true,
   ...headProps
 } = Astro.props;
 ---
@@ -72,20 +62,12 @@ const {
       Skip to content
     </a>
 
-    <Header
-      variant={headerVariant}
-      transparent={headerTransparent}
-      showCta={headerShowCta}
-    />
+    <Header variant={header} transparent={headerTransparent} />
 
     <main id="main-content" class:list={["flex-1", className]}>
       <slot />
     </main>
 
-    <Footer
-      variant={footerVariant}
-      showSocials={footerShowSocials}
-      showNewsletter={footerShowNewsletter}
-    />
+    <Footer variant={footer} />
   </body>
 </html>

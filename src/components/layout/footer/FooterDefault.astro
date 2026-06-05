@@ -1,14 +1,15 @@
 ---
+import { layoutDefaults } from "@/global"
 import FooterBrand from "./_parts/FooterBrand.astro"
 import FooterNavColumns from "./_parts/FooterNavColumns.astro"
 import FooterBottom from "./_parts/FooterBottom.astro"
 
 interface Props {
-  showSocials?: boolean
   class?: string
 }
 
-const { showSocials = true, class: className } = Astro.props
+const { class: className } = Astro.props
+const { showSocials } = layoutDefaults.footer
 ---
 
 <footer class:list={["border-t border-border/40 bg-muted/30", className]} id="site-footer">

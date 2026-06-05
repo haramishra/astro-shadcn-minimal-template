@@ -1,0 +1,18 @@
+---
+import { siteDetails } from "@/global"
+---
+
+<div
+  class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border/40 pt-8 sm:flex-row"
+>
+  <p class="text-sm text-muted-foreground">
+    &copy; {new Date().getFullYear()} {siteDetails.name}. All rights reserved.
+  </p>
+  <div class="flex items-center gap-4 text-sm text-muted-foreground">
+    <a href="/privacy" class="transition-colors hover:text-foreground">Privacy</a>
+    <span class="text-border">·</span>
+    <a href="/terms" class="transition-colors hover:text-foreground">Terms</a>
+    <span class="text-border">·</span>
+    <a href="/cookies" class="transition-colors hover:text-foreground">Cookies</a>
+  </div>
+</div>

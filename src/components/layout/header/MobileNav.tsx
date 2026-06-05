@@ -10,16 +10,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { IconMenu2 } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
-
-// ─── Types ────────────────────────────────────────────────────────────────
-
-interface NavLink {
-  label: string
-  href: string
-  external?: boolean
-  badge?: string
-  children?: NavLink[]
-}
+import type { NavLink } from "@/global"
 
 interface MobileNavProps {
   /** Navigation links to display */

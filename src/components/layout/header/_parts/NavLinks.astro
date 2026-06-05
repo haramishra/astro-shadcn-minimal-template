@@ -1,0 +1,43 @@
+---
+import type { NavLink } from "@/global"
+
+interface Props {
+  /** The navigation links to render */
+  links: NavLink[]
+  /** aria-label for the <nav> element */
+  ariaLabel?: string
+  /** Additional CSS classes for the <nav> wrapper */
+  class?: string
+  id?: string
+}
+
+const {
+  links,
+  ariaLabel = "Main navigation",
+  class: className,
+  id,
+} = Astro.props
+---
+
+<nav
+  class:list={["hidden items-center gap-1 md:flex", className]}
+  aria-label={ariaLabel}
+  id={id}
+>
+  {
+    links.map((link: NavLink) => (
+      <a
+        href={link.href}
+        class="relative rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+        data-nav-link
+      >
+        {link.label}
+        {link.badge && (
+          <span class="ml-1.5 inline-flex items-center rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary">
+            {link.badge}
+          </span>
+        )}
+      </a>
+    ))
+  }
+</nav>

@@ -1,6 +1,8 @@
 ---
 import { siteDetails, ctaDetails, headerNav } from "@/global";
-import type { NavLink } from "@/global";
+import HeaderLogo from "./_parts/HeaderLogo.astro";
+import NavLinks from "./_parts/NavLinks.astro";
+import CtaButton from "./_parts/CtaButton.astro";
 import { MobileNav } from "./MobileNav";
 
 interface Props {
@@ -37,13 +39,7 @@ const rightLinks = headerNav.slice(midpoint);
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <!-- Mobile: standard row layout -->
     <div class="flex h-16 items-center justify-between md:hidden">
-      <a
-        href="/"
-        class="flex items-center gap-2 transition-opacity hover:opacity-80"
-      >
-        <img src={siteDetails.logo} alt={siteDetails.name} class="h-8 w-8" />
-        <span class="text-lg font-semibold tracking-tight">{siteDetails.name}</span>
-      </a>
+      <HeaderLogo />
 
       <MobileNav
         client:load
@@ -58,62 +54,21 @@ const rightLinks = headerNav.slice(midpoint);
     <!-- Desktop: centered logo with split nav -->
     <div class="hidden h-16 items-center justify-center md:flex">
       <!-- Left Nav -->
-      <nav class="flex items-center gap-1" aria-label="Main navigation (left)">
-        {
-          leftLinks.map((link: NavLink) => (
-            <a
-              href={link.href}
-              class="relative rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-              data-nav-link
-            >
-              {link.label}
-              {link.badge && (
-                <span class="ml-1.5 inline-flex items-center rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary">
-                  {link.badge}
-                </span>
-              )}
-            </a>
-          ))
-        }
-      </nav>
+      <NavLinks links={leftLinks} ariaLabel="Main navigation (left)" />
 
       <!-- Center Logo -->
-      <a
-        href="/"
-        class="mx-8 flex items-center gap-2 transition-opacity hover:opacity-80"
-        id="header-logo"
-      >
-        <img src={siteDetails.logo} alt={siteDetails.name} class="h-9 w-9" />
-        <span class="text-xl font-semibold tracking-tight">{siteDetails.name}</span>
-      </a>
+      <HeaderLogo class="mx-8" logoSize="h-9 w-9" textSize="text-xl" />
 
       <!-- Right Nav + CTA -->
       <nav class="flex items-center gap-1" aria-label="Main navigation (right)">
-        {
-          rightLinks.map((link: NavLink) => (
-            <a
-              href={link.href}
-              class="relative rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-              data-nav-link
-            >
-              {link.label}
-              {link.badge && (
-                <span class="ml-1.5 inline-flex items-center rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary">
-                  {link.badge}
-                </span>
-              )}
-            </a>
-          ))
-        }
+        <NavLinks links={rightLinks} ariaLabel="Main navigation (right)" class="md:flex" />
         {
           showCta && (
-            <a
+            <CtaButton
               href={ctaDetails.primary.href}
-              class="ml-4 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25"
-              id="header-cta"
-            >
-              {ctaDetails.primary.label}
-            </a>
+              label={ctaDetails.primary.label}
+              class="ml-4"
+            />
           )
         }
       </nav>

@@ -1,0 +1,21 @@
+---
+import { siteDetails } from "@/global"
+import FooterLogo from "./FooterLogo.astro"
+import SocialLinks from "./SocialLinks.astro"
+
+interface Props {
+  /** Show social media icons (default: true) */
+  showSocials?: boolean
+}
+
+const { showSocials = true } = Astro.props
+---
+
+<div class="col-span-2">
+  <FooterLogo />
+  <p class="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
+    {siteDetails.description}
+  </p>
+
+  {showSocials && <SocialLinks class="mt-6" />}
+</div>

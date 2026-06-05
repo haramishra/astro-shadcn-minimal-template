@@ -1,6 +1,8 @@
 ---
 import { siteDetails, ctaDetails, headerNav } from "@/global"
-import type { NavLink } from "@/global"
+import HeaderLogo from "./_parts/HeaderLogo.astro"
+import NavLinks from "./_parts/NavLinks.astro"
+import CtaButton from "./_parts/CtaButton.astro"
 import { MobileNav } from "./MobileNav"
 
 interface Props {
@@ -33,52 +35,20 @@ const {
     class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
   >
     <!-- Logo -->
-    <a
-      href="/"
-      class="flex items-center gap-2 transition-opacity hover:opacity-80"
-      id="header-logo"
-    >
-      <img src={siteDetails.logo} alt={siteDetails.name} class="h-8 w-8" />
-      <span class="text-lg font-semibold tracking-tight"
-        >{siteDetails.name}</span
-      >
-    </a>
+    <HeaderLogo />
 
     <!-- Desktop Navigation -->
-    <nav
-      class="hidden items-center gap-1 md:flex"
-      id="desktop-nav"
-      aria-label="Main navigation"
-    >
-      {
-        headerNav.map((link: NavLink) => (
-          <a
-            href={link.href}
-            class="relative rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            data-nav-link
-          >
-            {link.label}
-            {link.badge && (
-              <span class="ml-1.5 inline-flex items-center rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-semibold text-primary">
-                {link.badge}
-              </span>
-            )}
-          </a>
-        ))
-      }
-    </nav>
+    <NavLinks links={headerNav} id="desktop-nav" />
 
     <!-- CTA + Mobile Menu -->
     <div class="flex items-center gap-3">
       {
         showCta && (
-          <a
+          <CtaButton
             href={ctaDetails.primary.href}
-            class="hidden rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-lg hover:shadow-primary/25 sm:inline-flex"
-            id="header-cta"
-          >
-            {ctaDetails.primary.label}
-          </a>
+            label={ctaDetails.primary.label}
+            class="hidden sm:inline-flex"
+          />
         )
       }
 

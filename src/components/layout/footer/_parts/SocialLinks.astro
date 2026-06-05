@@ -1,0 +1,27 @@
+---
+import { socialLinks } from "@/global"
+
+interface Props {
+  /** Additional CSS classes for the wrapper div */
+  class?: string
+  id?: string
+}
+
+const { class: className, id = "footer-social-links" } = Astro.props
+---
+
+<div class:list={["flex items-center gap-3", className]} id={id}>
+  {
+    socialLinks.map((social) => (
+      <a
+        href={social.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+        aria-label={`Follow us on ${social.type}`}
+      >
+        <social.Icon className="h-4 w-4" />
+      </a>
+    ))
+  }
+</div>

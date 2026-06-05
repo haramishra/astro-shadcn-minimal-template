@@ -1,15 +1,17 @@
 ---
-import { siteDetails, footerNav, socialLinks } from "@/global";
+import { siteDetails, footerNav } from "@/global"
+import FooterLogo from "./_parts/FooterLogo.astro"
+import SocialLinks from "./_parts/SocialLinks.astro"
 
 interface Props {
-  showSocials?: boolean;
-  class?: string;
+  showSocials?: boolean
+  class?: string
 }
 
-const { showSocials = true, class: className } = Astro.props;
+const { showSocials = true, class: className } = Astro.props
 
 // Flatten all footer nav groups into a single list of links
-const inlineLinks = footerNav.flatMap((group) => group.links).slice(0, 6);
+const inlineLinks = footerNav.flatMap((group) => group.links).slice(0, 6)
 ---
 
 <footer class:list={["border-t border-border/40", className]} id="site-footer">
@@ -18,10 +20,7 @@ const inlineLinks = footerNav.flatMap((group) => group.links).slice(0, 6);
   >
     <!-- Logo + Copyright -->
     <div class="flex items-center gap-3">
-      <a href="/" class="flex items-center gap-2" id="footer-logo">
-        <img src={siteDetails.logo} alt={siteDetails.name} class="h-7 w-7" />
-        <span class="text-sm font-semibold tracking-tight">{siteDetails.name}</span>
-      </a>
+      <FooterLogo logoSize="h-7 w-7" textSize="text-sm" />
       <span class="hidden text-border sm:inline">·</span>
       <p class="hidden text-sm text-muted-foreground sm:inline">
         &copy; {new Date().getFullYear()}
@@ -45,23 +44,7 @@ const inlineLinks = footerNav.flatMap((group) => group.links).slice(0, 6);
     </nav>
 
     <!-- Social Icons -->
-    {
-      showSocials && (
-        <div class="flex items-center gap-2" id="footer-social-links">
-          {socialLinks.map((social) => (
-            <a
-              href={social.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-              aria-label={`Follow us on ${social.type}`}
-            >
-              <social.Icon className="h-4 w-4" />
-            </a>
-          ))}
-        </div>
-      )
-    }
+    {showSocials && <SocialLinks class="gap-2" />}
   </div>
 
   <!-- Mobile-only copyright -->

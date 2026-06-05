@@ -1,0 +1,37 @@
+---
+/**
+ * HeaderWrapper — Shared `<header>` shell used by all header variants.
+ *
+ * Handles: sticky positioning, transparent mode, backdrop-blur,
+ * border, transitions, and the `id="site-header"` attribute.
+ *
+ * Variants only need to provide their inner layout via <slot />.
+ */
+import { layoutDefaults } from "@/global"
+
+interface Props {
+  transparent?: boolean
+  class?: string
+}
+
+const {
+  transparent = false,
+  class: className,
+} = Astro.props
+
+const { sticky } = layoutDefaults.header
+---
+
+<header
+  id="site-header"
+  class:list={[
+    "z-50 w-full transition-all duration-300",
+    sticky && "sticky top-0",
+    transparent
+      ? "bg-transparent"
+      : "border-b border-border/40 bg-background/80 backdrop-blur-xl supports-backdrop-filter:bg-background/60",
+    className,
+  ]}
+>
+  <slot />
+</header>

@@ -8,18 +8,30 @@ interface Props {
   logoSize?: string
   /** Site name text size class (default: "text-lg") */
   textSize?: string
+  /** Unique id for the element */
   id?: string
+  /** Enable hover opacity transition (default: true) */
+  withHover?: boolean
 }
 
 const {
   class: className,
   logoSize = "h-8 w-8",
   textSize = "text-lg",
-  id = "footer-logo",
+  id,
+  withHover = true,
 } = Astro.props
 ---
 
-<a href="/" class:list={["flex items-center gap-2", className]} id={id}>
+<a
+  href="/"
+  class:list={[
+    "flex items-center gap-2",
+    withHover && "transition-opacity hover:opacity-80",
+    className,
+  ]}
+  id={id}
+>
   <img src={siteDetails.logo} alt={siteDetails.name} class={logoSize} />
   <span class:list={["font-semibold tracking-tight", textSize]}
     >{siteDetails.name}</span

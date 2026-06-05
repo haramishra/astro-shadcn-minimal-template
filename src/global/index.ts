@@ -3,7 +3,6 @@ export {
   defaultMeta,
   ctaDetails,
   layoutDefaults,
-  socialLinks,
   type SocialLink,
   type SocialType,
 } from "./site-config"

@@ -1,5 +1,6 @@
 ---
 import {
+  IconArrowDownRight,
   IconBrandAbstract,
   IconBrandAdobe,
   IconBrandFramer,
@@ -8,6 +9,9 @@ import {
 import { Image } from "astro:assets"
 import HeroImage from "@/assets/images/hero.png"
 import { buttonVariants } from "@/components/ui/button"
+import { ctaDetails } from "@/global"
+
+const { heading, subheading, primaryCta } = ctaDetails.hero
 ---
 
 <section class="relative py-32">
@@ -16,46 +20,32 @@ import { buttonVariants } from "@/components/ui/button"
       <div
         class="z-10 mx-auto flex max-w-5xl flex-col items-center gap-6 text-center"
       >
-        <div
-          class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold text-foreground transition-colors focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:outline-none"
+        <a
+          href={ctaDetails.banner.href}
+          class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold text-foreground transition-colors hover:bg-accent focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:outline-none"
         >
-          New Release<svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-arrow-down-right ml-2 size-4"
-          >
-            <path d="m7 7 10 10"></path>
-            <path d="M17 7v10H7"></path>
-          </svg>
-        </div>
+          {ctaDetails.banner.label}
+          <IconArrowDownRight className="ml-2 size-4" />
+        </a>
         <div class="space-y-8">
           <div class="space-y-4">
             <h1 class="mb-6 text-3xl font-medium text-pretty lg:text-7xl">
-              This is a heading for your new project
+              {heading}
             </h1>
-            <p class="mx-auto max-w-2xl text-zinc-600">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig
-              doloremque mollitia fugiat omnis! Porro facilis quo animi
-              consequatur. Explicabo.
+            <p class="mx-auto max-w-2xl text-muted-foreground">
+              {subheading}
             </p>
             <a
-              href="#"
+              href={primaryCta.href}
               class={buttonVariants({ variant: "default", size: "cta" })}
-              >Main CTA Button</a
+              >{primaryCta.label}</a
             >
           </div>
           <Image src={HeroImage} alt="Hero Image" width={1000} height={1000} />
         </div>
 
         <div class="mt-20 flex flex-col items-center gap-4 lg:mt-40">
-          <p class="text-center: text-zinc-600 lg:text-left">
+          <p class="text-center text-muted-foreground lg:text-left">
             Powering the next generation of digital products
           </p>
           <div class="flex flex-wrap items-center justify-center gap-8">

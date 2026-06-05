@@ -1,6 +1,6 @@
 ---
 import { siteDetails } from "@/global"
-import FooterLogo from "./FooterLogo.astro"
+import SiteLogo from "@/components/layout/_parts/SiteLogo.astro"
 import SocialLinks from "./SocialLinks.astro"
 
 interface Props {
@@ -12,7 +12,7 @@ const { showSocials = true } = Astro.props
 ---
 
 <div class="col-span-2">
-  <FooterLogo />
+  <SiteLogo id="footer-logo" withHover={false} />
   <p class="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
     {siteDetails.description}
   </p>

@@ -1,6 +1,6 @@
 ---
 import { siteDetails, footerNav, layoutDefaults } from "@/global"
-import FooterLogo from "./_parts/FooterLogo.astro"
+import SiteLogo from "@/components/layout/_parts/SiteLogo.astro"
 import SocialLinks from "./_parts/SocialLinks.astro"
 
 interface Props {
@@ -20,7 +20,7 @@ const inlineLinks = footerNav.flatMap((group) => group.links).slice(0, 6)
   >
     <!-- Logo + Copyright -->
     <div class="flex items-center gap-3">
-      <FooterLogo logoSize="h-7 w-7" textSize="text-sm" />
+      <SiteLogo logoSize="h-7 w-7" textSize="text-sm" id="footer-logo" withHover={false} />
       <span class="hidden text-border sm:inline">·</span>
       <p class="hidden text-sm text-muted-foreground sm:inline">
         &copy; {new Date().getFullYear()}

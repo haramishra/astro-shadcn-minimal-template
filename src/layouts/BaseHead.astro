@@ -1,4 +1,5 @@
 ---
+import { Font } from "astro:assets";
 import { siteDetails, defaultMeta } from "@/global";
 
 interface Props {
@@ -51,6 +52,10 @@ const resolvedCanonical = canonical.startsWith("http")
 
 <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Optimized Fonts (Astro Fonts API) -->
+<Font cssVariable="--font-dm-sans" preload />
+<Font cssVariable="--font-playfair-display" />
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>

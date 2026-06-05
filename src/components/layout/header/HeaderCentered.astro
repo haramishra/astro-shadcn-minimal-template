@@ -1,43 +1,29 @@
 ---
-import { siteDetails, ctaDetails, headerNav, layoutDefaults } from "@/global";
-import HeaderLogo from "./_parts/HeaderLogo.astro";
-import NavLinks from "./_parts/NavLinks.astro";
-import CtaButton from "./_parts/CtaButton.astro";
-import { MobileNav } from "./MobileNav";
+import { ctaDetails, headerNav, layoutDefaults } from "@/global"
+import SiteLogo from "@/components/layout/_parts/SiteLogo.astro"
+import HeaderWrapper from "./_parts/HeaderWrapper.astro"
+import NavLinks from "./_parts/NavLinks.astro"
+import CtaButton from "./_parts/CtaButton.astro"
+import { MobileNav } from "./MobileNav"
 
 interface Props {
-  transparent?: boolean;
-  class?: string;
+  transparent?: boolean
+  class?: string
 }
 
-const {
-  transparent = false,
-  class: className,
-} = Astro.props;
-
-const { sticky, showCta } = layoutDefaults.header;
+const { showCta } = layoutDefaults.header
 
 // Split nav links into two halves for centered layout
-const midpoint = Math.ceil(headerNav.length / 2);
-const leftLinks = headerNav.slice(0, midpoint);
-const rightLinks = headerNav.slice(midpoint);
+const midpoint = Math.ceil(headerNav.length / 2)
+const leftLinks = headerNav.slice(0, midpoint)
+const rightLinks = headerNav.slice(midpoint)
 ---
 
-<header
-  id="site-header"
-  class:list={[
-    "z-50 w-full transition-all duration-300",
-    sticky && "sticky top-0",
-    transparent
-      ? "bg-transparent"
-      : "border-b border-border/40 bg-background/80 backdrop-blur-xl supports-backdrop-filter:bg-background/60",
-    className,
-  ]}
->
+<HeaderWrapper {...Astro.props}>
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <!-- Mobile: standard row layout -->
     <div class="flex h-16 items-center justify-between md:hidden">
-      <HeaderLogo />
+      <SiteLogo id="header-logo-mobile" />
 
       <MobileNav
         client:load
@@ -51,7 +37,7 @@ const rightLinks = headerNav.slice(midpoint);
       <NavLinks links={leftLinks} ariaLabel="Main navigation (left)" />
 
       <!-- Center Logo -->
-      <HeaderLogo class="mx-8" logoSize="h-9 w-9" textSize="text-xl" />
+      <SiteLogo class="mx-8" logoSize="h-9 w-9" textSize="text-xl" id="header-logo" />
 
       <!-- Right Nav + CTA -->
       <nav class="flex items-center gap-1" aria-label="Main navigation (right)">
@@ -68,4 +54,4 @@ const rightLinks = headerNav.slice(midpoint);
       </nav>
     </div>
   </div>
-</header>
+</HeaderWrapper>

@@ -1,6 +1,7 @@
 ---
-import { siteDetails, ctaDetails, headerNav, layoutDefaults } from "@/global"
-import HeaderLogo from "./_parts/HeaderLogo.astro"
+import { ctaDetails, headerNav, layoutDefaults } from "@/global"
+import SiteLogo from "@/components/layout/_parts/SiteLogo.astro"
+import HeaderWrapper from "./_parts/HeaderWrapper.astro"
 import NavLinks from "./_parts/NavLinks.astro"
 import CtaButton from "./_parts/CtaButton.astro"
 import { MobileNav } from "./MobileNav"
@@ -10,30 +11,15 @@ interface Props {
   class?: string
 }
 
-const {
-  transparent = false,
-  class: className,
-} = Astro.props
-
-const { sticky, showCta } = layoutDefaults.header
+const { showCta } = layoutDefaults.header
 ---
 
-<header
-  id="site-header"
-  class:list={[
-    "z-50 w-full transition-all duration-300",
-    sticky && "sticky top-0",
-    transparent
-      ? "bg-transparent"
-      : "border-b border-border/40 bg-background/80 backdrop-blur-xl supports-backdrop-filter:bg-background/60",
-    className,
-  ]}
->
+<HeaderWrapper {...Astro.props}>
   <div
     class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
   >
     <!-- Logo -->
-    <HeaderLogo />
+    <SiteLogo id="header-logo" />
 
     <!-- Desktop Navigation -->
     <NavLinks links={headerNav} id="desktop-nav" />
@@ -57,4 +43,4 @@ const { sticky, showCta } = layoutDefaults.header
       />
     </div>
   </div>
-</header>
+</HeaderWrapper>

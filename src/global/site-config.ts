@@ -26,26 +26,26 @@ export const siteDetails = {
 
   // ── Social Links ─────────────────────────────────────────────────────────
   socialLinks: [
-    { type: "x" as const, link: "https://x.com/yourhandle", icon: IconBrandX },
+    { type: "x" as const, link: "https://x.com/yourhandle", Icon: IconBrandX },
     {
       type: "github" as const,
       link: "https://github.com/yourhandle",
-      icon: IconBrandGithub,
+      Icon: IconBrandGithub,
     },
     {
       type: "linkedin" as const,
       link: "https://linkedin.com/company/yourhandle",
-      icon: IconBrandLinkedin,
+      Icon: IconBrandLinkedin,
     },
     {
       type: "instagram" as const,
       link: "https://instagram.com/yourhandle",
-      icon: IconBrandInstagram,
+      Icon: IconBrandInstagram,
     },
     {
       type: "youtube" as const,
       link: "https://youtube.com/@yourhandle",
-      icon: IconBrandYoutube,
+      Icon: IconBrandYoutube,
     },
   ],
 } as const;
@@ -106,21 +106,8 @@ export const layoutDefaults = {
   },
 } as const;
 
-// ─── Derived Helpers ─────────────────────────────────────────────────────────
-
-/** Mapped social links with a consistent shape for components. */
-export const socialLinks = siteDetails.socialLinks.map((link) => ({
-  type: link.type,
-  link: link.link,
-  Icon: link.icon,
-}));
-
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 export type SocialType = (typeof siteDetails.socialLinks)[number]["type"];
 
-export interface SocialLink {
-  type: SocialType;
-  link: string;
-  Icon: React.ComponentType<{ className?: string; size?: number }>;
-}
+export type SocialLink = (typeof siteDetails.socialLinks)[number];

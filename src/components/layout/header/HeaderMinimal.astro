@@ -1,5 +1,6 @@
 ---
-import { ctaDetails, headerNav, layoutDefaults } from "@/global"
+import { siteDetails, ctaDetails, headerNav, layoutDefaults } from "@/global"
+import { getImage } from "astro:assets"
 import SiteLogo from "@/components/layout/_parts/SiteLogo.astro"
 import HeaderWrapper from "./_parts/HeaderWrapper.astro"
 import CtaButton from "./_parts/CtaButton.astro"
@@ -11,6 +12,13 @@ interface Props {
 }
 
 const { showCta } = layoutDefaults.header
+
+// Optimize mobile menu logo
+const optimizedLogo = await getImage({
+  src: siteDetails.logo,
+  width: 28,
+  height: 28,
+})
 ---
 
 <HeaderWrapper {...Astro.props}>
@@ -36,6 +44,7 @@ const { showCta } = layoutDefaults.header
         client:load
         links={headerNav}
         className="md:inline-flex"
+        logoSrc={optimizedLogo.src}
       />
     </div>
   </div>

@@ -1,5 +1,6 @@
 ---
 import { siteDetails } from "@/global"
+import { Image } from "astro:assets"
 
 interface Props {
   /** Additional CSS classes for the logo link */
@@ -21,6 +22,19 @@ const {
   id,
   withHover = true,
 } = Astro.props
+
+// Parse logo size class to get numerical width/height for standard Tailwind classes
+const sizeMap: Record<string, number> = {
+  "h-6": 24, "w-6": 24,
+  "h-7": 28, "w-7": 28,
+  "h-8": 32, "w-8": 32,
+  "h-9": 36, "w-9": 36,
+  "h-10": 40, "w-10": 40,
+  "h-12": 48, "w-12": 48,
+  "h-16": 64, "w-16": 64,
+}
+const sizeClass = logoSize.split(" ").find(c => c.startsWith("h-") || c.startsWith("w-"))
+const widthHeight = sizeClass ? (sizeMap[sizeClass] || 32) : 32
 ---
 
 <a
@@ -32,7 +46,13 @@ const {
   ]}
   id={id}
 >
-  <img src={siteDetails.logo} alt={siteDetails.name} class={logoSize} />
+  <Image
+    src={siteDetails.logo}
+    alt={siteDetails.name}
+    class={logoSize}
+    width={widthHeight}
+    height={widthHeight}
+  />
   <span class:list={["font-semibold tracking-tight", textSize]}
     >{siteDetails.name}</span
   >

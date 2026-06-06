@@ -17,6 +17,8 @@ interface MobileNavProps {
   links: NavLink[]
   /** Additional trigger button classes */
   className?: string
+  /** Processed logo image source URL */
+  logoSrc: string
 }
 
 // ─── Component ────────────────────────────────────────────────────────────
@@ -24,6 +26,7 @@ interface MobileNavProps {
 export function MobileNav({
   links,
   className,
+  logoSrc,
 }: MobileNavProps) {
   const { showCta } = layoutDefaults.header
   const cta = showCta ? ctaDetails.primary : undefined
@@ -48,7 +51,7 @@ export function MobileNav({
         <SheetHeader>
           <SheetTitle>
             <a href="/" className="flex items-center gap-2">
-              <img src={siteDetails.logo} alt={siteDetails.name} className="h-7 w-7" />
+              <img src={logoSrc} alt={siteDetails.name} className="h-7 w-7" />
               <span className="text-base font-semibold tracking-tight">
                 {siteDetails.name}
               </span>
